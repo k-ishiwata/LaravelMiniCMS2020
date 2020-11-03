@@ -8,30 +8,26 @@ use App\Models\Post;
 class PostController extends Controller
 {
     /**
-     * Post一覧
+     * 一覧画面
      *
      * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
         // 公開・新しい順に表示
-        $posts = Post::where('is_public', true)
-            ->orderBy('published_at', 'desc')
-            ->paginate(10);
-
+        $posts = Post::publicList();
         return view('front.posts.index', compact('posts'));
     }
 
     /**
-     * Post詳細
+     * 詳細画面
      *
      * @param int $id
      * @return \Illuminate\Contracts\View\View
      */
     public function show(int $id)
     {
-        $post = Post::where('is_public', true)->findOrFail($id);
-
+        $post = Post::publicFindById($id);
         return view('front.posts.show', compact('post'));
     }
 }
