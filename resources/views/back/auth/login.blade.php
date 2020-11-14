@@ -14,23 +14,28 @@
                 <div class="card">
                     <div class="card-header">ログイン</div>
                     <div class="card-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger" role="alert">
-                                <ul class="m-0">
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
                         {{ Form::open(['route' => 'login']) }}
                             <div class="form-group">
                                 {{ Form::label('name', 'ユーザー名') }}
-                                {{ Form::text('name', '', ['class' => 'form-control']) }}
+                                {{ Form::text('name', null, [
+                                    'class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : '')
+                                ]) }}
+                                @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div class="form-group">
                                 {{ Form::label('password', 'パスワード') }}
-                                {{ Form::password('password', ['class' => 'form-control']) }}
+                                {{ Form::password('password', [
+                                    'class' => 'form-control' . ($errors->has('password') ? ' is-invalid' : '')
+                                ]) }}
+                                @error('password')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
                             </div>
                             <div>
                                 <button type="submit" class="btn btn-primary">ログイン</button>

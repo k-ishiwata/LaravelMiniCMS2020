@@ -66,4 +66,14 @@ class Post extends Model
     {
         return $this->published_at->format('Y年m月d日');
     }
+
+    /**
+     * 公開ステータスをラベル表示
+     *
+     * @return string
+     */
+    public function getIsPublicLabelAttribute()
+    {
+        return $this->is_public ? '公開' : '非公開';
+    }
 }
