@@ -2,9 +2,12 @@
 /**
  * @var Illuminate\Pagination\LengthAwarePaginator|\App\Models\Post[] $posts
  */
+$title = '投稿一覧';
 ?>
-<x-back.layouts.base title="投稿一覧">
-<div class="card-header">投稿一覧</div>
+@extends('back.layouts.base')
+
+@section('content')
+<div class="card-header">{{ $title }}</div>
 <div class="card-body">
     {{ link_to_route('back.posts.create', '新規登録', null, ['class' => 'btn btn-primary mb-3']) }}
     @if(0 < $posts->count())
@@ -54,4 +57,4 @@
         </div>
     @endif
 </div>
-</x-back.layouts.base>
+@endsection

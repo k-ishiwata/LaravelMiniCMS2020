@@ -2,9 +2,12 @@
 /**
  * @var Illuminate\Pagination\LengthAwarePaginator|\App\Models\Post[] $posts
  */
+$title = 'お知らせ一覧';
 ?>
-<x-front.layouts.base title="お知らせ一覧">
-<div class="card-header">お知らせ一覧</div>
+@extends('front.layouts.base')
+
+@section('content')
+<div class="card-header">{{ $title }}</div>
 <div class="card-body">
     @if($posts->count() <= 0)
         <p>表示するお知らせはありません。</p>
@@ -22,4 +25,4 @@
         </div>
     @endif
 </div>
-</x-front.layouts.base>
+@endsection

@@ -2,12 +2,15 @@
 /**
  * @var \App\Models\Post $post
  */
+$title = '投稿作成';
 ?>
-<x-back.layouts.base title="投稿作成">
-    <div class="card-header">投稿作成</div>
-    <div class="card-body">
-        {{ Form::open(['route' => 'back.posts.store']) }}
-        @include('back.posts._form')
-        {{ Form::close() }}
-    </div>
-</x-back.layouts.base>
+@extends('back.layouts.base')
+
+@section('content')
+<div class="card-header">{{ $title }}</div>
+<div class="card-body">
+    {{ Form::open(['route' => 'back.posts.store']) }}
+    @include('back.posts._form')
+    {{ Form::close() }}
+</div>
+@endsection

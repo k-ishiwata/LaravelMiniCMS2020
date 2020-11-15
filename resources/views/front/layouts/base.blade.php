@@ -35,7 +35,7 @@
                 <div class="col-md-12">
                     <x-back.alert />
                     <div class="card">
-                        {{ $slot }}
+                        @yield('content')
                     </div>
                 </div>
             </div>

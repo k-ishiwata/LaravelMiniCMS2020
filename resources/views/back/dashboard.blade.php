@@ -1,3 +1,8 @@
-<x-back.layouts.base title="ダッシュボード">
-<div class="card-header">ダッシュボード</div>
-</x-back.layouts.base>
+<?php
+$title = 'ダッシュボード';
+?>
+@extends('back.layouts.base')
+
+@section('content')
+<div class="card-header">{{ $title }}</div>
+@endsection

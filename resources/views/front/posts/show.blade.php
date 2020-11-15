@@ -2,9 +2,12 @@
 /**
  * @var \App\Models\Post $post
  */
+$title = 'お知らせ詳細';
 ?>
-<x-front.layouts.base title="お知らせ詳細">
-<div class="card-header">お知らせ詳細</div>
+@extends('front.layouts.base')
+
+@section('content')
+<div class="card-header">{{ $title }}</div>
 <div class="card-body">
     <h2>{{ $post->title }}</h2>
     <time>{{ $post->published_format }}</time>
@@ -16,4 +19,4 @@
         ['class' => 'btn btn-secondary'])
     !!}
 </div>
-</x-front.layouts.base>
+@endsection

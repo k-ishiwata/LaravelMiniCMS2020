@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
-use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
@@ -14,7 +13,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
         $posts = Post::with('user')->latest('id')->paginate(20);
         return view('back.posts.index', compact('posts'));
