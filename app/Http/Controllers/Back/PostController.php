@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Back;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
+use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
@@ -13,9 +14,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::latest('id')->paginate(20);
+        $posts = Post::with('user')->latest('id')->paginate(20);
         return view('back.posts.index', compact('posts'));
     }
 
@@ -86,6 +87,7 @@ class PostController extends Controller
      *
      * @param Post $post
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Post $post)
     {

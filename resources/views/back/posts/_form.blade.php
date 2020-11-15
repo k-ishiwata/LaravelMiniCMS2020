@@ -34,7 +34,7 @@
 </div>
 
 <div class="form-group row">
-    {{ Form::label('is_public', 'ステータス', ['class' => 'col-sm-2 col-form-label']) }}
+    {{ Form::label('is_public', '状態', ['class' => 'col-sm-2 col-form-label']) }}
     <div class="col-sm-10">
         @foreach([1 => '公開', 0 => '非公開'] as $key => $value)
             <div class="form-check form-check-inline">
