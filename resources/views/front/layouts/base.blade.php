@@ -22,7 +22,7 @@
                     <li class="nav-item{{ Request::is('/') ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('front.home') }}">ホーム</a>
                     </li>
-                    <li class="nav-item{{ Request::is('posts*') ? ' active' : '' }}">
+                    <li class="nav-item{{ Request::is('posts', 'posts/*') ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('front.posts.index') }}">お知らせ</a>
                     </li>
                 </ul>

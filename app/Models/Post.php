@@ -40,6 +40,14 @@ class Post extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
+
+    /**
      * 公開のみ表示
      *
      * @param Builder $query
@@ -54,11 +62,18 @@ class Post extends Model
      * 公開記事一覧取得
      *
      * @param Builder $query
+     * @param string|null $tagSlug
      * @return Builder
      */
-    public function scopePublicList(Builder $query)
+    public function scopePublicList(Builder $query, string $tagSlug = null)
     {
+        if ($tagSlug) {
+            $query->whereHas('tags', function($query) use ($tagSlug) {
+                $query->where('slug', $tagSlug);
+            });
+        }
         return $query
+            ->with('tags')
             ->public()
             ->latest('published_at')
             ->paginate(10);
