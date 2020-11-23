@@ -39,23 +39,19 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        // nameの基本バリデーション
-        $name = ['required', 'string', 'max:255'];
-
         $validate = [
-            'name' => array_merge($name, [Rule::unique('users')]),
+            'name' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($this->user)],
             'email' => 'required|string|email|max:255',
-            'password' => 'required|string',
+            'password' => 'required|string'
         ];
 
-        // 更新時にバリデーションを変更
+        // 更新時はパスワード必須ではない
         if ($this->isMethod('put')) {
-            $validate = array_merge($validate, [
-                'name' => array_merge($name, [Rule::unique('users')->ignore($this->user)]),
-                'password' => 'nullable|string',
-            ]);
+            $validate['password'] = 'nullable|string';
         }
 
         return $validate;
     }
+
+
 }
