@@ -2,7 +2,7 @@
 /**
  * @var \App\Models\Post $post
  */
-$title = '投稿作成';
+$title = '投稿登録';
 ?>
 @extends('back.layouts.base')
 
