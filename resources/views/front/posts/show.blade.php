@@ -12,7 +12,7 @@ $title = '投稿詳細';
     <h2>{{ $post->title }}</h2>
     <time>{{ $post->published_format }}</time>
     <div>
-        {!! nl2br($post->body) !!}
+        {!! nl2br(e($post->body)) !!}
     </div>
     @if(0 < count($post->tags))
         <ul class="mt-3">

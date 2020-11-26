@@ -11,6 +11,12 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    // 権限ラベルの配列
+    const ROLES = [
+        1 => '管理者',
+        2 => '一般'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -20,6 +26,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -39,6 +46,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'role' => 'integer'
     ];
 
     protected static function boot()
@@ -61,5 +69,15 @@ class User extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    /**
+     * 権限をラベル表示
+     *
+     * @return string
+     */
+    public function getRoleLabelAttribute()
+    {
+        return self::ROLES[$this->role];
     }
 }

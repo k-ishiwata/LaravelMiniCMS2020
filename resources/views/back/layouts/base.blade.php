@@ -27,6 +27,11 @@
                     <li class="nav-item{{ Request::is('admin/tags', 'admin/tags/*') ? ' active' : '' }}">
                         <a class="nav-link" href="{{ route('back.tags.index') }}">タグ</a>
                     </li>
+                    @can('admin')
+                    <li class="nav-item{{ Request::is('admin/users', 'admin/users/*') ? ' active' : '' }}">
+                        <a class="nav-link" href="{{ route('back.users.index') }}">ユーザー</a>
+                    </li>
+                    @endcan
                     <li class="nav-item">
                         <a href="#" class="nav-link" onClick="(function(){
                             document.getElementById('logout-form').submit();

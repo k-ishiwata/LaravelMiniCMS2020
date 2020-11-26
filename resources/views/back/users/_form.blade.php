@@ -48,6 +48,13 @@
 </div>
 
 <div class="form-group row">
+    {{ Form::label('role', '権限', ['class' => 'col-sm-2 col-form-label']) }}
+    <div class="col-sm-10">
+        {{ Form::select('role', $roles, null, ['class' => 'form-control']) }}
+    </div>
+</div>
+
+<div class="form-group row">
     <div class="col-sm-10">
         <button type="submit" class="btn btn-primary">保存</button>
         {{ link_to_route('back.users.index', '一覧へ戻る', null, ['class' => 'btn btn-secondary']) }}

@@ -58,7 +58,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('back.users.edit', compact('user'));
+        $roles = User::ROLES;
+        return view('back.users.edit', compact('user', 'roles'));
     }
 
     /**

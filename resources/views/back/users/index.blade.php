@@ -17,6 +17,7 @@ $title = 'ユーザー一覧';
                     <th scope="col">ID</th>
                     <th scope="col">ユーザー名</th>
                     <th scope="col">メールアドレス</th>
+                    <th scope="col">権限</th>
                     <th scope="col" style="width: 12em">編集</th>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@ $title = 'ユーザー一覧';
                     <td>{{ $user->id }}</td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
+                    <td>{{ $user->role_label }}</td>
                     <td class="d-flex justify-content-center">
                         {{ link_to_route('back.users.edit', '編集', $user, [
                             'class' => 'btn btn-secondary btn-sm m-1'
