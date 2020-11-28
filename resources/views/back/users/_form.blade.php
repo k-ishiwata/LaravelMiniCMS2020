@@ -50,7 +50,7 @@
 <div class="form-group row">
     {{ Form::label('role', '権限', ['class' => 'col-sm-2 col-form-label']) }}
     <div class="col-sm-10">
-        {{ Form::select('role', $roles, null, ['class' => 'form-control']) }}
+        {{ Form::select('role', config('common.user.roles'), null, ['class' => 'form-control']) }}
     </div>
 </div>
 
