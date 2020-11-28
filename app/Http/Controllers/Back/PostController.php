@@ -5,30 +5,34 @@ namespace App\Http\Controllers\Back;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use App\Http\Requests\PostRequest;
+use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    /*
     // タグの読み込み処理を共通にする
     public function __construct()
     {
         $this->middleware(function ($request, \Closure $next) {
             \View::share('tags', Tag::pluck('name', 'id')->toArray());
             return $next($request);
-        })->only('create', 'edit');
+        })->only('index', 'create', 'edit');
     }
-    */
 
     /**
      * 一覧画面
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with('user')->latest('id')->paginate(20);
-        return view('back.posts.index', compact('posts'));
+        $posts = Post::with('user', 'tags')->search($request)->latest('id')->paginate(20);
+
+        $search = $request->all();
+        $users = User::pluck('name', 'id')->toArray();
+
+        return view('back.posts.index', compact('posts', 'search', 'users'));
     }
 
     /**
@@ -38,8 +42,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $tags = Tag::pluck('name', 'id')->toArray();
-        return view('back.posts.create', compact('tags'));
+        return view('back.posts.create');
     }
 
     /**
@@ -73,9 +76,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-
-        $tags = Tag::pluck('name', 'id')->toArray();
-        return view('back.posts.edit', compact('post', 'tags'));
+        return view('back.posts.edit', compact('post'));
     }
 
     /**

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
 
 class Post extends Model
 {
@@ -65,7 +66,7 @@ class Post extends Model
      * @param string|null $tagSlug
      * @return Builder
      */
-    public function scopePublicList(Builder $query, string $tagSlug = null)
+    public function scopePublicList(Builder $query, ?string $tagSlug)
     {
         if ($tagSlug) {
             $query->whereHas('tags', function($query) use ($tagSlug) {
@@ -92,6 +93,36 @@ class Post extends Model
     }
 
     /**
+     * 絞り込み検索
+     *
+     * @param Builder $query
+     * @param Request $request
+     * @return Builder
+     */
+    public function scopeSearch(Builder $query, Request $request)
+    {
+        // タイトル
+        if ($request->anyFilled('title')) {
+            $query->where('title', 'like', "%$request->title%");
+        }
+        // ユーザー
+        if ($request->anyFilled('user_id')) {
+            $query->where('user_id', $request->user_id);
+        }
+        // 公開・非公開
+        if ($request->anyFilled('is_public')) {
+            $query->where('is_public', $request->is_public);
+        }
+        // タグ
+        if ($request->anyFilled('tag_id')) {
+            $query->whereHas('tags', function($query) use ($request) {
+                $query->where('tag_id', $request->tag_id);
+            });
+        }
+        return $query;
+    }
+
+    /**
      * 公開日を年月日で表示
      *
      * @return string
@@ -108,6 +139,6 @@ class Post extends Model
      */
     public function getIsPublicLabelAttribute()
     {
-        return $this->is_public ? '公開' : '非公開';
+        return config('common.public_status')[$this->is_public];
     }
 }
