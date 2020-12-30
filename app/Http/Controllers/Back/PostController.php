@@ -55,7 +55,7 @@ class PostController extends Controller
     {
         $post = Post::create($request->all());
         // タグを追加
-        $post->tags()->attach($request->input('tags'));
+        $post->tags()->attach($request->tags);
 
         if ($post) {
             return redirect()
@@ -89,7 +89,7 @@ class PostController extends Controller
     public function update(PostRequest $request, Post $post)
     {
         // タグを更新
-        $post->tags()->sync($request->input('tags'));
+        $post->tags()->sync($request->tags);
 
         if ($post->update($request->all())) {
             $flash = ['success' => 'データを更新しました。'];
